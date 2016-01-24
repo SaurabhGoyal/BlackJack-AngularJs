@@ -14,7 +14,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+SITE_NAME = os.path.basename(BASE_DIR)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
@@ -30,14 +30,24 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = (
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
+DJANGO_APPS = (
+    u'django.contrib.admin',
+    u'django.contrib.auth',
+    u'django.contrib.contenttypes',
+    u'django.contrib.sessions',
+    u'django.contrib.messages',
+    u'django.contrib.staticfiles',
 )
+
+THIRD_PARTY_APPS = (
+    # Static file management:
+    u'compressor',
+)
+
+LOCAL_APPS = (
+)
+
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -50,7 +60,15 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
 )
 
-ROOT_URLCONF = 'tic_tac_toe_ng.urls'
+# See: https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#staticfiles-finders
+STATICFILES_FINDERS = (
+    u'django.contrib.staticfiles.finders.FileSystemFinder',
+    u'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    u'compressor.finders.CompressorFinder',
+)
+# END STATIC FILE CONFIGURATION #
+
+ROOT_URLCONF = u'{0}.urls'.format(SITE_NAME)
 
 TEMPLATES = [
     {
@@ -68,7 +86,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'tic_tac_toe_ng.wsgi.application'
+WSGI_APPLICATION = u'{0}.wsgi.application'.format(SITE_NAME)
 
 
 # Database
@@ -100,3 +118,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR,  u'static')
