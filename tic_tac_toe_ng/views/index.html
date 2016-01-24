@@ -3,6 +3,23 @@
 {% load compress %}
 {% load staticfiles %}
 
+{%  block scripts %}
+
+    {# Required basic scripts #}
+    <script type="text/javascript" src="{% static 'scripts/libs/angular.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'scripts/init.js' %}"></script>
+    <script type="text/javascript" src="{% static 'scripts/config.js' %}"></script>
+
+    {# Required angular-service scripts #}
+    <script type="text/javascript" src="{% static 'scripts/services/shuffler.js' %}"></script>
+
+    {# Required angular-controller scripts #}
+    <script type="text/javascript" src="{% static 'scripts/controllers/game_page.js' %}"></script>
+
+{% endblock %}
+
 {%  block content %}
-    Tic Tac Toe using NG
+    <div class="GamePage" data-ng-controller="GamePageCtrl as gamePage">
+        A {[{ gamePage.title }]} game working purely on amazing AngularJS.
+    </div>
 {%  endblock %}
