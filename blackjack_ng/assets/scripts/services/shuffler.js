@@ -1,4 +1,4 @@
-TicTacToeNg.service("shufflerService", function () {
+BlackJackNg.service("shufflerService", function () {
     return {
         shuffleArray: function shuffle(array) {
 

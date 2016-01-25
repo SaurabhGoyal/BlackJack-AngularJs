@@ -1,5 +1,5 @@
-# TicTacToe-AngularJs
-A simple tic-tac-toe app to get started with AngularJs.
+# BlackJack-AngularJS
+A simple implementation of black-jack game to get started with AngularJS and Heroku.
 
 Useful Links-
 * Shuffle algorithm: http://bost.ocks.org/mike/shuffle/
