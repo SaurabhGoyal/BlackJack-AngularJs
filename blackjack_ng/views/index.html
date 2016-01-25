@@ -12,6 +12,11 @@
 
     {# Required angular-service scripts #}
     <script type="text/javascript" src="{% static 'scripts/services/shuffler.js' %}"></script>
+    <script type="text/javascript" src="{% static 'scripts/services/card.js' %}"></script>
+    <script type="text/javascript" src="{% static 'scripts/services/deck_of_cards.js' %}"></script>
+    <script type="text/javascript" src="{% static 'scripts/services/hand.js' %}"></script>
+    <script type="text/javascript" src="{% static 'scripts/services/player.js' %}"></script>
+    <script type="text/javascript" src="{% static 'scripts/services/blackjack.js' %}"></script>
 
     {# Required angular-controller scripts #}
     <script type="text/javascript" src="{% static 'scripts/controllers/game_page.js' %}"></script>
@@ -20,6 +25,32 @@
 
 {%  block content %}
     <div class="GamePage" data-ng-controller="GamePageCtrl as gamePage">
-        <h2>A BlackJack(<span data-ng-bind="gamePage.title"></span>) game working purely on amazing AngularJS.</h2>
+        <h2>A BlackJack game working purely on amazing AngularJS.</h2>
+        <div class="gameStartedMenu" data-ng-hide="gamePage.game">
+            <input name="numberOfDecks" type="text" data-ng-model="gamePage.numberOfDecks" />
+            <input name="player" type="text" data-ng-model="gamePage.playerName" />
+            <input name="bet" type="number" data-ng-model="gamePage.playerBet" />
+            <button data-ng-click="gamePage.startGame()">Start Game</button>
+        </div>
+        <hr>
+        <div class="game" data-ng-show="gamePage.game">
+            <div class="playersInfo" data-ng-repeat="player in gamePage.game.players">
+                <ul>
+                    <li>Name: <span data-ng-bind="player.getName()"></span></li>
+                    <li>Bet: <span data-ng-bind="player.getBet()"></span></li>
+                    <li>Score: <span data-ng-bind="player.getHand().getScore()"></span></li>
+                    <ul>
+                        <li>
+                        <div class="cardssInfo" data-ng-repeat="card in player.getHand().getCards()">
+                            Card: <span data-ng-bind="card.getNumber()"></span> of <span data-ng-bind="card.getSuit()"></span>
+                        </div>
+                        </li>
+                    </ul>
+                    <li>
+                        <button data-ng-click="gamePage.game.deal(player)">Deal more</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
 {%  endblock %}

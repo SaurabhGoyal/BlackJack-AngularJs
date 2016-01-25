@@ -1,5 +1,5 @@
 """
-WSGI config for tic_tac_toe_ng project.
+WSGI config for blackjack_ng project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
