@@ -20,6 +20,6 @@
 
 {%  block content %}
     <div class="GamePage" data-ng-controller="GamePageCtrl as gamePage">
-        A {[{ gamePage.title }]} game working purely on amazing AngularJS.
+        <h2>A <span data-ng-bind="gamePage.title"></span> game working purely on amazing AngularJS.</h2>
     </div>
 {%  endblock %}
