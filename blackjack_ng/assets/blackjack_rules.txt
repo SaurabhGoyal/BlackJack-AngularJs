@@ -1,0 +1,13 @@
+BlackJack Rules-
+------------------------------------------------
+0) The game is between each player and dealer.
+1) Dealer deals two cards to player face-up, and two cards to himself one face-up and one face-down.
+2) If player has 21, It's blackjack and he/she gets 3:2.
+3) Else player has two options, hit or stand.
+4) Hit- dealer deals another card to player.
+5) Stand- player's turn is complete.
+6) If anyone has a score >21, he/she has a bust and looses.
+7) A draw is called a push and nothing happens in this.
+8) After completing every player's hand, dealer plays his hand.
+9) Dealer first opens his face-down card and then must keep on dealing untill his/her score is >=17, dealer has no choice.
+10) After completing his/her hand, dealer collects the loosing bets and rewards the winning bets.

@@ -1,23 +1,44 @@
-BlackJackNg.service("blackjackService", ['deckOfCards', 'playerService', function (deckOfCards, playerService) {
-    function Game(numberOfDecks, numberOfPlayers){
-        this.deck = new deckOfCards.Deck(numberOfDecks);
-        this.deck.shuffle();
-        this.players = [];
-        this.addPlayer = function (name, bet) {
-            var newPlayer = new playerService.player(name, bet);
-            this.players.push(newPlayer);
-            var hand = newPlayer.getHand();
-            this.deal(newPlayer);
-            this.deal(newPlayer);
-        };
-        this.deal = function(player){
-            var dealt_card = this.deck.cards.pop();
-            dealt_card.faceDown = false;
-            player.addCards([dealt_card]);
-            return dealt_card;
+BlackJackNg.service("blackjackService", ['deckService', 'dealerService', 'playerService',
+    function (deckService, dealerService, playerService) {
+
+        function Game(numberOfDecks){
+
+            var deck = new deckService.Deck(numberOfDecks);
+            var dealer = new dealerService.Dealer('dealer');
+            var players = [];
+
+            this.shuffleDeck = function () {
+                deck.shuffle();
+            };
+
+            this.initDealer = function (name) {
+                dealer = new dealerService.Dealer(name);
+            };
+
+            this.getDealer = function () {
+                var dealer_ref = dealer;
+                return dealer_ref;
+            };
+
+            this.addPlayer = function (name, bet) {
+                var newPlayer = new playerService.Player(name, bet);
+                players.push(newPlayer);
+                this.deal(newPlayer, true);
+                this.deal(newPlayer, true);
+            };
+
+            // Deals the given participant the top-most card in the given position.
+            this.deal = function(participant, faceUp){
+                var dealt_card = deck.getTopMostCard();
+                if(faceUp)
+                    dealt_card.toggleFace();
+                participant.addCards([dealt_card]);
+                return dealt_card;
+            }
         }
+
+        return {
+            Game: Game
+        };
     }
-    return {
-        game: Game
-    };
-}]);
+]);

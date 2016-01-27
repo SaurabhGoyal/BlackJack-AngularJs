@@ -1,9 +1,8 @@
-BlackJackNg.service("playerService", ['handService', function (handService) {
+BlackJackNg.service("dealerService", ['handService', function (handService) {
 
-    function Player(name, bet){
+    function Dealer(name){
 
         var name = name;
-        var bet = bet;
         var hand = new handService.Hand();
 
         this.getName = function(){
@@ -12,14 +11,6 @@ BlackJackNg.service("playerService", ['handService', function (handService) {
 
         this.setName = function(new_name){
             name = new_name;
-        };
-
-        this.getBet = function(){
-            return bet;
-        };
-
-        this.increaseBet = function(amount){
-            bet += amount;
         };
 
         this.getHand = function(){
@@ -32,6 +23,6 @@ BlackJackNg.service("playerService", ['handService', function (handService) {
     }
 
     return {
-        Player: Player
+        Dealer: Dealer
     };
 }]);

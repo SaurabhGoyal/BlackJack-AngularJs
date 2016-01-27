@@ -13,8 +13,9 @@
     {# Required angular-service scripts #}
     <script type="text/javascript" src="{% static 'scripts/services/shuffler.js' %}"></script>
     <script type="text/javascript" src="{% static 'scripts/services/card.js' %}"></script>
-    <script type="text/javascript" src="{% static 'scripts/services/deck_of_cards.js' %}"></script>
+    <script type="text/javascript" src="{% static 'scripts/services/deck.js' %}"></script>
     <script type="text/javascript" src="{% static 'scripts/services/hand.js' %}"></script>
+    <script type="text/javascript" src="{% static 'scripts/services/dealer.js' %}"></script>
     <script type="text/javascript" src="{% static 'scripts/services/player.js' %}"></script>
     <script type="text/javascript" src="{% static 'scripts/services/blackjack.js' %}"></script>
 
@@ -25,15 +26,30 @@
 
 {%  block content %}
     <div class="GamePage" data-ng-controller="GamePageCtrl as gamePage">
-        <h2>A BlackJack game working purely on amazing AngularJS.</h2>
-        <div class="gameStartedMenu" data-ng-hide="gamePage.game">
-            <input name="numberOfDecks" type="text" data-ng-model="gamePage.numberOfDecks" />
-            <input name="player" type="text" data-ng-model="gamePage.playerName" />
-            <input name="bet" type="number" data-ng-model="gamePage.playerBet" />
+        <div class="gameStatusBar" data-ng-hide="gamePage.game">
+            <input name="numberOfDecks" type="number" data-ng-model="gamePage.numberOfDecks" />
+            <input name="dealerName" type="text" data-ng-model="gamePage.dealerName" />
             <button data-ng-click="gamePage.startGame()">Start Game</button>
         </div>
-        <hr>
-        <div class="game" data-ng-show="gamePage.game">
+        <div class="gameStatusBar" data-ng-show="gamePage.game">
+            Game started with <span data-ng-bind="gamePage.numberOfDecks"></span> decks.
+        </div>
+        <div class="dealerArea" data-ng-show="gamePage.game">
+            <div class="dealerInfo">
+                <ul>
+                    <li>Name: <span data-ng-bind="gamePage.dealer.getName()"></span></li>
+                    <li>Score: <span data-ng-bind="gamePage.dealer.getHand().getScore()"></span></li>
+                    <ul>
+                        <li>
+                        <div class="cardsInfo" data-ng-repeat="card in gamePage.dealer.getHand().getCards()">
+                            Card: <span data-ng-bind="card.prettyPrint()"></span>
+                        </div>
+                        </li>
+                    </ul>
+                </ul>
+            </div>
+        </div>
+        <div class="playersArea">
             <div class="playersInfo" data-ng-repeat="player in gamePage.game.players">
                 <ul>
                     <li>Name: <span data-ng-bind="player.getName()"></span></li>
@@ -42,7 +58,7 @@
                     <ul>
                         <li>
                         <div class="cardssInfo" data-ng-repeat="card in player.getHand().getCards()">
-                            Card: <span data-ng-bind="card.getNumber()"></span> of <span data-ng-bind="card.getSuit()"></span>
+                            Card: <span data-ng-bind="card.getNumberPretty()"></span> of <span data-ng-bind="card.getSuitPretty()"></span>
                         </div>
                         </li>
                     </ul>

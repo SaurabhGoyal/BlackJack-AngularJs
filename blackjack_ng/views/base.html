@@ -15,10 +15,13 @@
     {% endblock %}
 
 </head>
-<body>
+<body class="container">
 
     <div class="header">
-        {% block header %}{% endblock %}
+        {% block header %}
+            <h2>A BlackJack game working purely on amazing AngularJS.</h2>
+            <hr>
+        {% endblock %}
     </div>
 
     <div class="content">
@@ -26,7 +29,10 @@
     </div>
 
     <div class="footer">
-        {% block footer %}{% endblock %}
+        {% block footer %}
+            <hr>
+            Made by <a href="https://saurabhgoyal.github.io">Saurabh Goyal</a> using knowkedge from <a href="#">here</a>.
+        {% endblock %}
     </div>
 
 </body>
